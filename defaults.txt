@@ -1,0 +1,10 @@
+Username=
+Password=
+Userlist=
+List start index=
+List end index=
+Duration=3600
+Timeout=100
+Ratio=5
+Account=
+Number of users=

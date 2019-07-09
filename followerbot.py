@@ -5,11 +5,26 @@ import time
 import os
 from test import getuserlist
 
+defaults = {'Username':'', 'Password':'', 'Userlist':'',
+            'List start index':'', 'List end index':'', 'Duration':'3600',
+            'Timeout':'100', 'Ratio':'5', 'Account':'',
+            'Number of users':''}
+
 def check_directory():
     if not os.path.exists('Following'):
         os.makedirs('Following')
     if not os.path.exists('Followers'):
         os.makedirs('Followers')
+    if not os.path.exists('Unfollowed.txt'):
+        f_unfollowed = open('Unfollowed.txt', 'a')
+    yesterday = datetime.datetime.now() - datetime.timedelta(days = 1)
+    readpath = 'Following/' + yesterday.strftime("%Y-%m-%d") + '.txt'
+    if not os.path.exists(readpath):
+        f = open(readpath, 'a')
+    if not os.path.exists('defaults.txt'):
+        f_defaults = open('defaults.txt', 'a')
+        for key in defaults:
+            f_defaults.write(key + '=' + defaults[key] + '\n')
 
 def start_bot(login_username, login_password, duration, follower_list, start_follow, end_follow, timeout, ratio):
     start_time = time.time()
@@ -76,7 +91,7 @@ def start_bot(login_username, login_password, duration, follower_list, start_fol
                             f_unfollowed.write('%s\n' % user)
                             break
                     time.sleep(3)
-            wd.close()
+            wd.quit()
         except:
-            continue
+            wd.quit()
 
