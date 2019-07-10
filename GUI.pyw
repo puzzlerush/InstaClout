@@ -50,7 +50,7 @@ entries2 = [entryaccount, entrynum]
 
 for i in range(len(labeltext2)):
     label2 = Label(root, text = labeltext2[i])
-    label2.grid(row = i, column = 2, padx = 16, pady = 8)
+    label2.grid(row = i, column = 2, sticky = E, padx = 16, pady = 8)
     entries2[i].grid(row = i, column = 3, padx = 2, pady = 8)
     
 button1 = Button(root, text='Get users')
