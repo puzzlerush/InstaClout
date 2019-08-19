@@ -56,10 +56,14 @@ def start_bot(login_username, login_password, duration, follower_list, start_fol
             wd.get('https://www.instagram.com/%s/' % user)
             time.sleep(1)
             if user not in unfollowed_userlist:
-                button = wd.find_element_by_css_selector('button')
-                if button.text == 'Follow':
-                    button.click()
-                    f.write('%s\n' % user)
+                buttons = wd.find_elements_by_css_selector('button')
+                for button in buttons:
+                    if button.text == 'Follow':
+                        button.click()
+                        f.write('%s\n' % user)
+                        break
+                    elif button.text == 'Following' or button.text == 'Requested':
+                        break
             time.sleep(2)
         f.close()
         for i in range(ratio):
