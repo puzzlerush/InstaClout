@@ -75,19 +75,36 @@ def start_bot(login_username, login_password, duration, follower_list, start_fol
             unfollowed_list = []
             for user in text.split('\n'):
                 wd.get('https://www.instagram.com/%s/' % user)
-                page_buttons = wd.find_elements_by_tag_name('button')
-                for button in page_buttons:
-                    if button.text == 'Following' or button.text == 'Requested':
-                        button.click()
-                        unfollowed_list.append(user)
-                        time.sleep(2)
-                        break
-                popup_buttons = wd.find_elements_by_tag_name('button')
-                for popup in popup_buttons:
-                    if popup.text == 'Unfollow':
-                        popup.click()
-                        f_unfollowed.write('%s\n' % user)
-                        break
+                try:
+                    page_buttons = wd.find_elements_by_tag_name('button')
+                    for button in page_buttons:
+                        if button.text == 'Following' or button.text == 'Requested':
+                            button.click()
+                            unfollowed_list.append(user)
+                            time.sleep(2)
+                            break
+                except:
+                    page_buttons = wd.find_elements_by_tag_name('button')
+                    for button in page_buttons:
+                        if button.text == 'Following' or button.text == 'Requested':
+                            button.click()
+                            unfollowed_list.append(user)
+                            time.sleep(2)
+                            break
+                try:
+                    popup_buttons = wd.find_elements_by_tag_name('button')
+                    for popup in popup_buttons:
+                        if popup.text == 'Unfollow':
+                            popup.click()
+                            f_unfollowed.write('%s\n' % user)
+                            break
+                except:
+                    popup_buttons = wd.find_elements_by_tag_name('button')
+                    for popup in popup_buttons:
+                        if popup.text == 'Unfollow':
+                            popup.click()
+                            f_unfollowed.write('%s\n' % user)
+                            break 
                 time.sleep(3)
         wd.quit()
 
