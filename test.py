@@ -29,10 +29,16 @@ def getuserlist(login_username, login_password, account, follower_num, timeout):
     wd.execute_script("arguments[0].scrollTop = Math.round(arguments[0].scrollHeight * 0.2)", scrl)
     time.sleep(2)
     while len(set(user_list)) < follower_num:
-        names = wd.find_elements_by_class_name('d7ByH')
-        for n in names:
-            if n.text != '' and 'Verified' not in n.text:
-                user_list.append(n.text)
+        try:
+            names = wd.find_elements_by_class_name('d7ByH')
+            for n in names:
+                if n.text != '' and 'Verified' not in n.text:
+                    user_list.append(n.text)
+        except:
+            names = wd.find_elements_by_class_name('d7ByH')
+            for n in names:
+                if n.text != '' and 'Verified' not in n.text:
+                    user_list.append(n.text)
         wd.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrl)
         time.sleep(1)
     user_list = list(set(user_list))
